@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="gazebo_control_plugin">
+    <gazebo>
+      <!-- 使用全向控制插件 -->
+      <plugin filename="libgazebo_ros_planar_move.so" name="mecanum_drive_controller">
+        <ros>
+          <remapping>cmd_vel:=/cmd_vel</remapping>
+          <remapping>odom:=/odom</remapping>
+        </ros>
+
+        <!-- 配置全向控制 -->
+        <frontLeftJoint>front_left_wheel_joint</frontLeftJoint>    <!-- 前左轮 -->
+        <frontRightJoint>front_right_wheel_joint</frontRightJoint>  <!-- 前右轮 -->
+        <rearLeftJoint>rear_left_wheel_joint</rearLeftJoint>        <!-- 后左轮 -->
+        <rearRightJoint>rear_right_wheel_joint</rearRightJoint>     <!-- 后右轮 -->
+        <wheelDiameter>0.1</wheelDiameter>   <!-- 轮子直径 -->
+        <wheelSeparation>0.36</wheelSeparation>  <!-- 轮距（车辆宽度） -->
+
+        <torque>20</torque>  <!-- 轮子扭矩 -->
+        <topicName>cmd_vel</topicName>  <!-- 控制命令话题 -->
+        <odometryFrame>odom</odometryFrame>  <!-- 里程计坐标系 -->
+        <odometryTopic>odom</odometryTopic>  <!-- 里程计话题 -->
+        <robotBaseFrame>base_footprint</robotBaseFrame>  <!-- 机器人基础坐标系 -->
+        <publishOdomTF>true</publishOdomTF>  <!-- 发布里程计变换 -->
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+</robot>
